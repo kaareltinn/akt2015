@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -7,29 +8,55 @@ import static org.junit.Assert.*;
 
 public class AKTKiTest {
 
+    private HashMap<String, Integer> env;
+
+    @Before
+    public void setUp() throws Exception {
+        env = new HashMap<>();
+        env.put("x", 5);
+        env.put("y", -2);
+        env.put("z", 10);
+    }
+
+
     @Test
     public void testTokenize() throws Exception {
         checkTokenize("2+2",      "2", "+", "2");
         checkTokenize("2 -  8",   "2", "-", "8");
         checkTokenize("2 -- 8",   "2", "-", "-", "8");
+        checkTokenize("2-2+8",    "2", "-", "2", "+", "8");
     }
 
     private void checkTokenize(String input, String... strings) {
         assertEquals(Arrays.asList(strings), AKTKi.tokenize(input));
     }
 
+
     @Test
     public void testCompute() throws Exception {
-        HashMap<String, Integer> map = new HashMap<>();
-        checkCompute(4, "2+2", map);
-        checkCompute(0, "2+2-4", map);
-        checkCompute(8, "2+2--4", map);
-        checkCompute(10,"2-2+10", map);
-        checkCompute(10,"5 + - - + - + + - 5", map);
-
+        checkCompute(4, "2+2");
+        checkCompute(0, "2+2-4");
+        checkCompute(8, "2+2--4");
     }
 
-    private void checkCompute(int result, String input, HashMap<String, Integer> env) {
+    @Test
+    public void testComputeWithVars() throws Exception {
+        checkCompute(3, "x+y");
+        checkCompute(10, "z");
+    }
+
+    @Test
+    public void testComputeLong1() throws Exception {
+        checkCompute(12, "5 + - - + - + + - 7");
+        checkCompute(-2, "5 + - - - - + + - 7");
+    }
+
+    @Test
+    public void testComputeLong2() throws Exception {
+        checkCompute(10, "2-2+10");
+    }
+
+    private void checkCompute(int result, String input) {
         assertEquals(result, AKTKi.compute(AKTKi.tokenize(input), env));
     }
 }
