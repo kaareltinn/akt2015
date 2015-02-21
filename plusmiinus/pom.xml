@@ -7,7 +7,7 @@
     </properties>
     <modelVersion>4.0.0</modelVersion>
     <groupId>ut.ee.akt</groupId>
-    <artifactId>aktki</artifactId>
+    <artifactId>plusmiinus</artifactId>
     <version>1.0</version>
     <dependencies>
         <dependency>
@@ -26,6 +26,15 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <mainClass>AKTKi</mainClass>
+                    <commandlineArgs>test1.aktk x 10 y 5</commandlineArgs>
                 </configuration>
             </plugin>
         </plugins>
