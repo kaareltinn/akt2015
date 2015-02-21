@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class HardCore {
+public class Lexer {
 
     private int number;
     private String var;
@@ -14,7 +14,7 @@ public class HardCore {
     private int sign;
     private Map<String, Integer> vars;
 
-    public HardCore(Map<String, Integer> vars) {
+    public Lexer(Map<String, Integer> vars) {
         sum = 0;
         this.vars = vars;
         init();
@@ -34,8 +34,8 @@ public class HardCore {
         for(int i = 0; i < (args.length - 1) / 2; i++) {
             vars.put(args[i * 2 + 1], Integer.parseInt(args[i * 2 + 2]));
         }
-        HardCore auto = new HardCore(vars);
-        int sum = auto.lex(in);
+        Lexer lexer = new Lexer(vars);
+        int sum = lexer.lex(in);
         System.out.println(sum);
     }
 
