@@ -24,6 +24,7 @@ public class AKTKiTest {
         checkTokenize("2+2",      "2", "+", "2");
         checkTokenize("2 -  8",   "2", "-", "8");
         checkTokenize("2 -- 8",   "2", "-", "-", "8");
+        checkTokenize("2 - - 8",   "2", "-", "-", "8");
         checkTokenize("2-2+8",    "2", "-", "2", "+", "8");
     }
 

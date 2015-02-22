@@ -23,7 +23,7 @@ public class Stratified {
         sc.close();
 
         int summa = 0;
-        String[] plussid = rida.replaceAll("\\s+", "").split("[+]");
+        String[] plussid = rida.replaceAll("\\s+", "").split("\\+");
         for (String n : plussid) {
             String[] numbrid = n.split("-");
             summa += väärtuseks(numbrid[0], map);

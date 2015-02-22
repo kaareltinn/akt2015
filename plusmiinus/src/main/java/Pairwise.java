@@ -9,20 +9,17 @@ public class Pairwise {
     public static void main(String[] args) throws IOException {
 
         String text = (new BufferedReader(new FileReader(args[0]))).readLine();
-
-        // http://stackoverflow.com/questions/2206378/how-to-split-a-string-but-also-keep-the-delimiters
-        String[] tykid = text.replaceAll("\\s", "").split("(?=[+-])|(?<=[+-])");
+        String[] tükid = tükkelda(text);
 
         Map<String, Integer> muutujad = new HashMap<>();
-
         for (int i = 1; i < args.length; i += 2) {
             muutujad.put(args[i], Integer.valueOf(args[i + 1]));
         }
 
-        int tulemus = getInteger(tykid[0], muutujad);
-        for (int i = 1; i < tykid.length; i += 2) {
-            int value = getInteger(tykid[i + 1], muutujad);
-            if (tykid[i].equals("+")) {
+        int tulemus = getInteger(tükid[0], muutujad);
+        for (int i = 1; i < tükid.length; i += 2) {
+            int value = getInteger(tükid[i + 1], muutujad);
+            if (tükid[i].equals("+")) {
                 tulemus += value;
             } else {
                 tulemus -= value;
@@ -30,6 +27,13 @@ public class Pairwise {
         }
 
         System.out.println(tulemus);
+    }
+
+    private static String[] tükkelda(String text) {
+        // http://stackoverflow.com/questions/2206378/how-to-split-a-string-but-also-keep-the-delimiters
+        //   return text.replaceAll("\\s", "").split("(?=[+-])|(?<=[+-])");
+        // aga tegelikult saab ka lihtsamini:
+        return text.replace(" ", "").replace("+", "!+!").replace("-", "!-!").split("!");
     }
 
     private static int getInteger(String s, Map<String, Integer> muutujad) {
