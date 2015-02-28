@@ -48,7 +48,7 @@ public class MachineDefs {
     /**
      * Siin on vaja plus-avaldist juppideks jagada, toppides etteantud eraldaja juppide vahele.
      * Kui eraldaja on näiteks '|', siis sisendi "10+kala++5" korral tahaks saada "10|+|kala|+|+|5".
-     * Ma ei taha saada "10|+|b|+||+|5"
+     * Ma ei taha saada "10|+|kala|+||+|5"
      */
     public static MealyMachine getTokenizer(char delim) {
         // TODO: Samuti kahe seisundiga masin.
