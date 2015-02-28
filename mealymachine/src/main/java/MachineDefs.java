@@ -12,8 +12,8 @@ public class MachineDefs {
 
 
     /**
-     * Tulemusena tahaks saada masin, mis realiseerib meie StripHtml ülesanne.
-     * Siin on alustatud, aga väike viga on sees... Lisaks võiks masina laiendada, et
+     * Tulemusena tahaks saada masin, mis realiseerib meie HtmlStrip ülesanne.
+     * Siin on alustatud, aga väike viga on sees... Lisaks võiks masina täiendada, et
      * mõlemat tüüpi jutumärkidega arvestaks.
      */
     public static MealyMachine getHtmlMachine() {
@@ -52,8 +52,8 @@ public class MachineDefs {
      */
     public static MealyMachine getTokenizer(char delim) {
         // TODO: Samuti kahe seisundiga masin.
-        // Masin on siin lehel: https://courses.cs.ut.ee/2015/AKT/spring/Main/PlusMiinus
-        // Ülemineku väljundid on siin natuke lihtsamad.
+        // Masin on lehel: https://courses.cs.ut.ee/2015/AKT/spring/Main/PlusMiinus
+        // Sealset viimast seisundit ei ole vaja ja väljundid on siin muidugi lihtsamad.
         return null;
     }
 
@@ -71,9 +71,9 @@ public class MachineDefs {
     }
 
     /**
-     * See on kodutöö, mis oli liiga lihtne. Nüüd on ta natuke raskem...  :)
+     * See on see kodutöö ülesanne, mis oli liiga lihtne. Nüüd on ta natuke raskem...  :)
      * See ei ole liiga tüütu, kui kasutada kirjavahemärkide lisamiseks abifunktsioon,
-     * eeldades muidugi, et automaat ise on kõigepealt optimeeritud.
+     * eeldades muidugi, et automaat on kõigepealt optimeeritud.
      */
     public static MealyMachine getFormatter() {
         // TODO: Lõpuks saab kodutöö korralikult lahendatud.

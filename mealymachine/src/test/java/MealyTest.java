@@ -28,6 +28,7 @@ public class MealyTest {
         check(m, "\"foo\"", "\"<b name='ka>la\"'>foo</b>\"");
     }
 
+
     @Test
     public void testXoxo() throws Exception {
         MealyMachine m = MachineDefs.getXoxoMachine();
@@ -36,6 +37,15 @@ public class MealyTest {
         check(m, "kala", "kala");
         check(m, "xeroo", "xerox");
     }
+
+
+    @Test
+    public void testTokenizer() throws Exception {
+        MealyMachine m = MachineDefs.getTokenizer('|');
+        check(m, "kala|+|maja", "kala+maja");
+        check(m, "1|+|+|5", "1++5");
+    }
+
 
     @Test
     public void testDepth() throws Exception {
@@ -47,6 +57,30 @@ public class MealyTest {
         check(m, "2", "(()($((");
         check(m, "0", "(((((())))))$");
     }
+
+
+    @Test
+    public void testFormatter1() throws Exception {
+        check(formatter, "One Two Three Four",  "One Two  Three   Four");
+    }
+
+    @Test
+    public void testFormatter2() throws Exception {
+        check(formatter, "Tere, Maailm!", "Tere   ,Maailm!");
+    }
+
+    @Test
+    public void testFormatter3() throws Exception {
+        check(formatter, "This text (all of it) has occasional lapses... in\n" +
+                        "punctuation (sometimes, pretty bad; sometimes, not so).\n" +
+                        "\n" +
+                        "(Ha!) Is this: fun!?! Or what?",
+                "This     text (all of it   )has occasional lapses .. .in\n" +
+                        "  punctuation( sometimes,pretty bad ; sometimes ,not so).\n" +
+                        "\n" +
+                        "( Ha ! )Is this  :fun ! ? !  Or   what  ?");
+    }
+
 
     @Test
     public void testBinaryMachine3() throws Exception {
@@ -70,35 +104,6 @@ public class MealyTest {
         check(m, "0", "1111$"); // 15
         check(m, "0", "101101101$");
         check(m, "4", "111101110$");
-    }
-
-    @Test
-    public void testTokenizer() throws Exception {
-        MealyMachine m = MachineDefs.getTokenizer('|');
-        check(m, "kala|+|maja", "kala+maja");
-        check(m, "1|+|+|5", "1++5");
-    }
-
-    @Test
-    public void testFormatter1() throws Exception {
-        check(formatter, "One Two Three Four",  "One Two  Three   Four");
-    }
-
-    @Test
-    public void testFormatter2() throws Exception {
-        check(formatter, "Tere, Maailm!", "Tere   ,Maailm!");
-    }
-
-    @Test
-    public void testFormatter3() throws Exception {
-        check(formatter, "This text (all of it) has occasional lapses... in\n" +
-                        "punctuation (sometimes, pretty bad; sometimes, not so).\n" +
-                        "\n" +
-                        "(Ha!) Is this: fun!?! Or what?",
-                "This     text (all of it   )has occasional lapses .. .in\n" +
-                        "  punctuation( sometimes,pretty bad ; sometimes ,not so).\n" +
-                        "\n" +
-                        "( Ha ! )Is this  :fun ! ? !  Or   what  ?");
     }
 
 
