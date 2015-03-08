@@ -1,4 +1,4 @@
-package jflap2brics;
+
 
 import static org.junit.Assert.*;
 
