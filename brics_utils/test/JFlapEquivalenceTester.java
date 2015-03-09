@@ -2,6 +2,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,7 +29,9 @@ public class JFlapEquivalenceTester {
 		File currentDir = new File(System.getProperty("user.dir"));
 		List<Object[]> benchmarkFiles = new ArrayList<>();
 		
-		for (File file : currentDir.listFiles()) {
+		File[] files = currentDir.listFiles();
+		Arrays.sort(files);
+		for (File file : files) {
 			if (file.getName().matches("bench.+jff")) {
 				benchmarkFiles.add(new Object[]{file});
 			}
