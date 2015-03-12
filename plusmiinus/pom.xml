@@ -6,7 +6,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>ut.ee.akt</groupId>
+    <groupId>ee.ut.cs.akt</groupId>
     <artifactId>plusmiinus</artifactId>
     <version>1.0</version>
     <dependencies>
