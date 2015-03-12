@@ -9,7 +9,7 @@ import ee.ut.cs.akt.regex.RegexNode;
 import ee.ut.cs.akt.regex.RegexParser;
 
 
-public class GrepPublicTests {
+public class GrepPublicTest {
     @Test
     public void test1() {
         String[] good = {"abcde"};
