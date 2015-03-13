@@ -5,7 +5,7 @@ import java.text.ParseException;
 /**
  * Regulaaravaldise parsimine. Selle kohta räägime veel tulevikus...
  *
- * @author Vesal Vojdani <vesal@cs.ut.ee>
+ * @author Vesal Vojdani &lt;vesal@cs.ut.ee&gt;
  */
 public class RegexParser {
     final public static char EPS = 'ε';
@@ -19,9 +19,7 @@ public class RegexParser {
     public RegexNode parse() {
         pos=0;
         try {
-            RegexNode root = start();
-            root.makeDot();
-            return root;
+            return start();
         } catch (ParseException e) {
             System.out.println("Parse error: " + e.getMessage());
             System.out.println(input + '$');
@@ -80,7 +78,7 @@ public class RegexParser {
         RegexParser parser = new RegexParser(args[0]);
         System.out.println("Parsing: " + parser.input);
         RegexNode root = parser.parse();
-        root.makeDot();
+        root.createDotFile("tree.dot");
     }
 
 

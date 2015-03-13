@@ -6,5 +6,6 @@ public class RegexToAST {
         RegexParser parser = new RegexParser("(a|b)*a(a|b)");
         RegexNode node = parser.parse();
         node.makeDot();
+        System.out.println(node);
     }
 }

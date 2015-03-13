@@ -24,7 +24,7 @@ public class RegexNodeCounter {
                 transitions++;
         }
 
-        for (RegexNode child : n.children)
+        for (RegexNode child : n.getChildren())
             count(child);
     }
 

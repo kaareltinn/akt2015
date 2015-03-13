@@ -1,19 +1,17 @@
 package ee.ut.cs.akt.regex;
 
 public class Repetition extends RegexNode {
-    private RegexNode child;
 
     public Repetition(RegexNode child) {
         super('*', child);
-        this.child = child;
     }
 
     public RegexNode getChild() {
-        return child;
+        return getChild(0);
     }
 
     @Override
-    public <R> R accept(RegexVisitor<R> visitor) {
-        return visitor.visit(this);
+    public <R,D> R accept(RegexVisitor<R,D> visitor, D data) {
+        return visitor.visit(this, data);
     }
 }

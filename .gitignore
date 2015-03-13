@@ -6,3 +6,4 @@ target
 .recommenders
 .project
 .metadata
+*.dot

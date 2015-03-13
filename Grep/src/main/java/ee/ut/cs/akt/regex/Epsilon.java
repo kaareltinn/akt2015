@@ -6,7 +6,12 @@ public class Epsilon extends RegexNode {
     }
 
     @Override
-    public <R> R accept(RegexVisitor<R> visitor) {
-        return visitor.visit(this);
+    public <R,D> R accept(RegexVisitor<R,D> visitor, D data) {
+        return visitor.visit(this, data);
+    }
+
+    @Override
+    protected void dotAddAttributes(StringBuilder out) {
+        out.append("shape=\"square\"");
     }
 }
