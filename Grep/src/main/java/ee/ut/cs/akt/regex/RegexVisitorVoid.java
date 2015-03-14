@@ -2,9 +2,9 @@ package ee.ut.cs.akt.regex;
 
 
 public abstract class RegexVisitorVoid implements RegexVisitor<Void,Void> {
+    public abstract void visit(Repetition node, RegexNode child);
     public abstract void visit(Alternation node, RegexNode left, RegexNode right);
     public abstract void visit(Concatenation node, RegexNode left, RegexNode right);
-    public abstract void visit(Repetition node, RegexNode child);
     public abstract void visit(Epsilon node);
     public abstract void visit(Letter node);
 
