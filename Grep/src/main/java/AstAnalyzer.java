@@ -12,6 +12,11 @@ import ee.ut.cs.akt.regex.*;
  */
 public class AstAnalyzer {
 
+
+    /**
+     * See on nüüd kõige tüüpilisem lähenemine. Me eeldame, et kõik teevad endale
+     * selgeks, kuidas süntaksipuu niimoodi läbida:
+     */
     static void computeEmpty(RegexNode node) {
         if (node instanceof Epsilon) {
             node.setEmpty(true); // Kas on õige??
@@ -61,8 +66,8 @@ public class AstAnalyzer {
 
     /**
      * See on siis näide visitori kasutamisest. Me soovitakse seda kasutada ainult siis,
-     * kui oskate juba käsitsi iteratsiooni implementeerida ja huvi pärast võib proovida
-     * teise liidesega, muidu kustutage selle meetodi sisu. (Last on ju peaaegu First-iga identnde.)
+     * kui oskate juba käsitsi puu läbimist implementeerida. Parem on sel juhul ära kustutada
+     * see visitor ja implementeerida ise.
      */
     static void computeLast(RegexNode node) {
         RegexVisitorVoid lastVisitor = new RegexVisitorVoid() {
@@ -86,7 +91,7 @@ public class AstAnalyzer {
         node.acceptPost(lastVisitor);
     }
 
-    // Siin saate ise valida, kuidas lahendada, aga tuletan meelde, et siin tuleb puu
+    // Siin saate ise valida, kuidas lahendada, aga pidage meeles, et siin tuleb puu
     // läbida eeljärjestuses (pre-order) ehk ülalt alla.
     static void computeNext(RegexNode node) {
         // TODO
