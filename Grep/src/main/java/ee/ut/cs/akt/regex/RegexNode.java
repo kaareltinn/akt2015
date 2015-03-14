@@ -15,7 +15,7 @@ public abstract class RegexNode {
     protected final int myID;
     private static int uniqueID = 1;
     private final List<RegexNode> children;
-    
+
     private boolean empty = true;
     private final Set<Letter> frstSet, lastSet, nextSet;
 
@@ -32,7 +32,7 @@ public abstract class RegexNode {
         return empty;
     }
 
-    public Set<Letter> getFrstSet() {
+    public Set<Letter> getFirstSet() {
         return frstSet;
     }
 
@@ -48,27 +48,27 @@ public abstract class RegexNode {
         this.empty = empty;
     }
 
-    public void addFirst(Collection<Letter> nodes) {
+    public void addToFirstSet(Collection<Letter> nodes) {
         frstSet.addAll(nodes);
     }
 
-    public void addFirst(Letter node) {
+    public void addToFirstSet(Letter node) {
         frstSet.add(node);
     }
 
-    public void addLast(Collection<Letter> nodes) {
+    public void addToLastSet(Collection<Letter> nodes) {
         lastSet.addAll(nodes);
     }
 
-    public void addLast(Letter node) {
+    public void addToLastSet(Letter node) {
         lastSet.add(node);
     }
 
-    public void addNext(Collection<Letter> nodes) {
+    public void addToNextSet(Collection<Letter> nodes) {
         nextSet.addAll(nodes);
     }
 
-    public void addNext(Letter node) {
+    public void addToNextSet(Letter node) {
         nextSet.add(node);
     }
 
@@ -179,7 +179,7 @@ public abstract class RegexNode {
         }
         return fa;
     }
-    
+
 }
 
 

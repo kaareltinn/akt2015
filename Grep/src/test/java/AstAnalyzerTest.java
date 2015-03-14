@@ -38,7 +38,7 @@ public class AstAnalyzerTest {
         AstAnalyzer.computeEmpty(node);
         AstAnalyzer.computeFirst(node);
         List<Character> firstSet = new LinkedList<>();
-        for (Letter letter : node.getFrstSet()) {
+        for (Letter letter : node.getFirstSet()) {
             firstSet.add(letter.getSymbol());
         }
         assertEquals(chars, firstSet);
