@@ -1,5 +1,7 @@
 package ee.ut.cs.akt.automata;
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -169,5 +171,45 @@ public class FiniteAutomaton {
 		
 		return sb.toString();
 	}
+
+    private String toDot() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("digraph DFA {\n");
+        sb.append("rankdir=LR\n");
+        sb.append("bgcolor=transparent;\n");
+        sb.append("null [shape = plaintext label=\"\"]\n");
+        sb.append("node [style=filled, shape=circle, fixedsize=true];\n");
+        sb.append("null -> ").append(startState).append('\n');
+        for (Integer state : states) {
+            sb.append(state);
+            sb.append(String.format(" [label=<%d>", state));
+            if (acceptingStates.contains(state)) sb.append(", shape=doublecircle");
+            sb.append("]\n");
+        }
+
+        for (Map.Entry<Integer, Map<Character, Set<Integer>>> integerMapEntry : transitions.entrySet()) {
+            Integer pre = integerMapEntry.getKey();
+            for (Map.Entry<Character, Set<Integer>> characterSetEntry : integerMapEntry.getValue().entrySet()) {
+                Character c = characterSetEntry.getKey();
+                for (Integer post : characterSetEntry.getValue()) {
+                    sb.append(String.format("%d -> %d [label=\"%s\"]\n", pre, post, c));
+                }
+            }
+        }
+
+        sb.append("}");
+        return sb.toString();
+    }
+
+    public void createDotFile(String fileName)  {
+        PrintStream printStream = null;
+        try {
+            printStream = new PrintStream(fileName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        printStream.print(toDot());
+        printStream.close();
+    }
 }
 
