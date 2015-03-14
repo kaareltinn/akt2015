@@ -24,9 +24,8 @@ public class Grep {
             System.exit(1);
         }
 
-        String regex = args[0];
-        RegexParser parser = new RegexParser(regex);
-        FiniteAutomaton automaton = optimize(regexToFiniteAutomaton(parser.parse()));
+        RegexNode regex = RegexParser.parse(args[0]);
+        FiniteAutomaton automaton = optimize(regexToFiniteAutomaton(regex));
 
         Scanner scanner;
         if (args.length == 2) {
