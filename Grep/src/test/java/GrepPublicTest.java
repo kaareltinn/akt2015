@@ -49,8 +49,7 @@ public class GrepPublicTest {
 
 
     private void checkRegex(String re, String[] good, String[] bad) {
-        RegexParser parser = new RegexParser(re);
-        RegexNode root = parser.parse();
+        RegexNode root = RegexParser.parse(re);
         FiniteAutomaton auto = Grep.regexToFiniteAutomaton(root);
 
         for (String g : good) {

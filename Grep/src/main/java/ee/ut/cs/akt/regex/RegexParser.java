@@ -12,11 +12,16 @@ public class RegexParser {
     final private String input;
     private int pos;
 
-    public RegexParser(String input) {
+    public static RegexNode parse(String regex) {
+        RegexParser parser = new RegexParser(regex);
+        return parser.parse();
+    }
+
+    private RegexParser(String input) {
         this.input = input;
     }
 
-    public RegexNode parse() {
+    private  RegexNode parse() {
         pos=0;
         try {
             return start();
