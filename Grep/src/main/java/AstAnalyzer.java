@@ -66,7 +66,7 @@ public class AstAnalyzer {
 
     /**
      * See on siis näide visitori kasutamisest. Me soovitakse seda kasutada ainult siis,
-     * kui oskate juba käsitsi puu läbimist implementeerida. Parem on sel juhul ära kustutada
+     * kui oskate juba käsitsi puu läbimist implementeerida. Parem on vastasel juhul ära kustutada
      * see visitor ja implementeerida ise.
      */
     static void computeLast(RegexNode node) {
