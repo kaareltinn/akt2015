@@ -2,6 +2,7 @@ package ee.ut.cs.akt.regex;
 
 import ee.ut.cs.akt.automata.FiniteAutomaton;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
@@ -126,12 +127,13 @@ public abstract class RegexNode {
     }
 
     public void createDotFile(String fileName) {
-        try {
-            PrintStream out = new PrintStream(fileName);
+    	
+    	try (PrintStream out = new PrintStream(fileName)) {
             out.print(toDotString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    	} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+    	
     }
 
     public List<RegexNode> getChildren() {
