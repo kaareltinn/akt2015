@@ -3,9 +3,7 @@ import ee.ut.cs.akt.regex.RegexNode;
 import ee.ut.cs.akt.regex.RegexParser;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -37,11 +35,11 @@ public class AstAnalyzerTest {
         RegexNode node = RegexParser.parse(regex);
         AstAnalyzer.computeEmpty(node);
         AstAnalyzer.computeFirst(node);
-        List<Character> firstSet = new LinkedList<>();
+        Set<Character> firstSet = new HashSet<>();
         for (Letter letter : node.getFirstSet()) {
             firstSet.add(letter.getSymbol());
         }
-        assertEquals(chars, firstSet);
+        assertEquals(new HashSet<>(chars), firstSet);
     }
 
     @Test
@@ -55,11 +53,11 @@ public class AstAnalyzerTest {
         RegexNode node = RegexParser.parse(regex);
         AstAnalyzer.computeEmpty(node);
         AstAnalyzer.computeLast(node);
-        List<Character> lastSet = new LinkedList<>();
+        Set<Character> lastSet = new HashSet<>();
         for (Letter letter : node.getLastSet()) {
             lastSet.add(letter.getSymbol());
         }
-        assertEquals(chars, lastSet);
+        assertEquals(new HashSet<>(chars), lastSet);
     }
 
     @Test
@@ -76,11 +74,11 @@ public class AstAnalyzerTest {
         AstAnalyzer.computeNext(node);
         RegexNode letter = node;
         while (! (letter instanceof Letter)) letter = letter.getChild(0);
-        List<Character> nextSet = new LinkedList<>();
+        Set<Character> nextSet = new HashSet<>();
         for (Letter l : letter.getNextSet()) {
             nextSet.add(l.getSymbol());
         }
-        assertEquals(chars, nextSet);
+        assertEquals(new HashSet<>(chars), nextSet);
     }
 
 }
