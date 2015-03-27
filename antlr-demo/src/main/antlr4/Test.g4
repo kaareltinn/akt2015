@@ -1,6 +1,6 @@
 grammar Test;
 
-init: test1 | test2 | test3;
+init: test1 | test2;
 
 test1: (short|long)*;
 test2: (SHORT|LONG)*;
