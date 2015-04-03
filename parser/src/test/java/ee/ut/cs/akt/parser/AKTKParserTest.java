@@ -51,7 +51,7 @@ public class AKTKParserTest {
         List<TokenType> s3 = Arrays.asList(PLUS, MINUS, TIMES, DIV, RPAREN);
         checkException("5+5-+5", 4, s1, s2);
         checkException("5 5", 2, s2, s1);
-        checkException("(5 5", 2, s3, s1);
+        checkException("(5 5", 3, s3, s1);
     }
 
     private void checkException(String input, int location, List<TokenType> expected, List<TokenType> unexpected) {
