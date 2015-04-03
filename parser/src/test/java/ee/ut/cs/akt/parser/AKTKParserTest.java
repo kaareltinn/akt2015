@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import static ee.ut.cs.akt.lekser.TokenType.*;
 import static org.junit.Assert.*;
@@ -45,19 +46,33 @@ public class AKTKParserTest {
 
     @Test
     public void test04ParseExceptionBoonus2() throws Exception {
-        checkException("5+5-+5", 4, LPAREN, INTEGER, VARIABLE);
-        checkException("5 5", 2, PLUS, MINUS, TIMES, DIV, EOF);
+        List<TokenType> s1 = Arrays.asList(LPAREN, INTEGER, VARIABLE);
+        List<TokenType> s2 = Arrays.asList(PLUS, MINUS, TIMES, DIV, EOF);
+        List<TokenType> s3 = Arrays.asList(PLUS, MINUS, TIMES, DIV, RPAREN);
+        checkException("5+5-+5", 4, s1, s2);
+        checkException("5 5", 2, s2, s1);
+        checkException("(5 5", 2, s3, s1);
     }
 
-    private void checkException(String input, int location, TokenType... expected) {
+    private void checkException(String input, int location, List<TokenType> expected, List<TokenType> unexpected) {
         try {
             AKTKParser.parse(input);
+            assertTrue("Must throw exception!", false);
         } catch (AKTKParseException e) {
             assertEquals(location, e.getToken().getOffset());
-            if (expected.length > 0) {
-                assertEquals(new HashSet<TokenType>(Arrays.asList(expected)), e.getExpected());
+            if (expected != null) {
+                String msg = String.format("Your expected set %s should include %s, but not %s.",
+                        e.getExpected(), expected, unexpected);
+                assertTrue(msg, e.getExpected().containsAll(expected));
+                HashSet<TokenType> intersection = new HashSet<>(unexpected);
+                intersection.retainAll(e.getExpected());
+                assertTrue(msg, intersection.isEmpty());
             }
         }
+    }
+
+    private void checkException(String input, int location) {
+        checkException(input, location, null, null);
     }
 
 
