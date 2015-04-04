@@ -1,18 +1,17 @@
 package ee.ut.cs.akt.recognizers;
 
-public class BTRecognizer extends Recognizer {
+import ee.ut.cs.akt.parsers.Node;
+import ee.ut.cs.akt.parsers.ParseException;
+import ee.ut.cs.akt.parsers.Parser;
+
+public class BTRecognizer extends Parser {
     public BTRecognizer(String input) {
         super(input);
     }
 
-    public static void main(String[] args) {
-        Recognizer recognizer = new BTRecognizer(args[0]);
-        recognizer.parse();
-    }
-
     // Grammatika reeglid:
     // S -> aSb | ε
-    protected void s() {
+    protected Node s() {
         int mark = pos;
         try {
             match('a');
@@ -22,5 +21,6 @@ public class BTRecognizer extends Recognizer {
             pos = mark;
         }
         epsilon();
+        return null;
     }
 }

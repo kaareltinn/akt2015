@@ -1,8 +1,12 @@
 package ee.ut.cs.akt.recognizers;
 
+import ee.ut.cs.akt.parsers.Node;
+import ee.ut.cs.akt.parsers.ParseException;
+import ee.ut.cs.akt.parsers.Parser;
+
 import java.util.Random;
 
-public class RDRecognizer extends Recognizer {
+public class RDRecognizer extends Parser {
     static int N = 1000;
     Random generator;
 
@@ -12,10 +16,10 @@ public class RDRecognizer extends Recognizer {
     }
 
     public static void main(String[] args) {
-        Recognizer recognizer = new RDRecognizer(args[0]);
+        Parser recognizer = new RDRecognizer(args[0]);
         for (int i = 0; i < N; ) {
             try {
-                recognizer.attemptParse();
+                recognizer.parse();
                 System.out.println("Attempts: " + i);
                 return;
             } catch (ParseException e) {
@@ -27,7 +31,7 @@ public class RDRecognizer extends Recognizer {
 
     // Grammatika reeglid:
     // S -> aSb | ε
-    protected void s() {
+    protected Node s() {
 
         switch (generator.nextInt(2)) {
             case 0: // S -> aSb
@@ -37,5 +41,7 @@ public class RDRecognizer extends Recognizer {
             case 1: // S -> ε
                 epsilon();
         }
+
+        return null;
     }
 }

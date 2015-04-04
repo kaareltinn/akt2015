@@ -16,75 +16,75 @@ public class TutParser extends Parser {
 
     // S → T R
     protected Node s() {
-        Node _n = new Node("S");
-        _n.add(t());
-        _n.add(r());
-        return _n;
+        Node n = new Node("S");
+        n.add(t());
+        n.add(r());
+        return n;
     }
 
     // R → '+' T R | ε
     private Node r() {
-        Node _n = new Node("R");
+        Node n = new Node("R");
         switch(peek()) {
             case '+':
-                _n.add(match('+'));
-                _n.add(t());
-                _n.add(r());
+                n.add(match('+'));
+                n.add(t());
+                n.add(r());
                 break;
             case '$':
             case ')':
-                _n.add(epsilon());
+                n.add(epsilon());
                 break;
             default:
-                unexpected();
+                unexpected('+', '$', ')');
         }
-        return _n;
+        return n;
     }
 
     // T → F Q
     private Node t() {
-        Node _n = new Node("T");
-        _n.add(f());
-        _n.add(q());
-        return _n;
+        Node n = new Node("T");
+        n.add(f());
+        n.add(q());
+        return n;
     }
 
     // Q → '*' F Q | ε
     private Node q() {
-        Node _n = new Node("Q");
+        Node n = new Node("Q");
         switch(peek()) {
             case '*':
-                _n.add(match('*'));
-                _n.add(f());
-                _n.add(q());
+                n.add(match('*'));
+                n.add(f());
+                n.add(q());
                 break;
             case '$':
             case '+':
             case ')':
-                _n.add(epsilon());
+                n.add(epsilon());
                 break;
             default:
-                unexpected();
+                unexpected('*', '+', '$', ')');
         }
-        return _n;
+        return n;
     }
 
     // F → 'x' | '(' S ')'
     private Node f() {
-        Node _n = new Node("F");
+        Node n = new Node("F");
         switch(peek()) {
             case '(':
-                _n.add(match('('));
-                _n.add(s());
-                _n.add(match(')'));
+                n.add(match('('));
+                n.add(s());
+                n.add(match(')'));
                 break;
             case 'x':
-                _n.add(match('x'));
+                n.add(match('x'));
                 break;
             default:
-                unexpected();
+                unexpected('(', 'x');
         }
-        return _n;
+        return n;
     }
 
 }

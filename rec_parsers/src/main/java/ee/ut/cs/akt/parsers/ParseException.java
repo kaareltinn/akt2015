@@ -1,4 +1,4 @@
-package ee.ut.cs.akt.recognizers;
+package ee.ut.cs.akt.parsers;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;

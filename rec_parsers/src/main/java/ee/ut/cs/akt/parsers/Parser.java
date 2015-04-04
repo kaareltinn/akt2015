@@ -1,10 +1,8 @@
 package ee.ut.cs.akt.parsers;
 
-import ee.ut.cs.akt.recognizers.ParseException;
-
 public abstract class Parser {
-    String input;
-    int pos;
+    private String input;
+    protected int pos;
 
     public Parser(String input) {
         this.input = input + '$';
@@ -14,7 +12,7 @@ public abstract class Parser {
         return input.charAt(pos);
     }
 
-    protected Node match(char x) throws ParseException {
+    protected Node match(char x) {
         char y = input.charAt(pos);
         if (y == x) {
             pos++;
@@ -23,22 +21,17 @@ public abstract class Parser {
             throw new ParseException(y, pos, x);
     }
 
-    protected Node match(String s) throws ParseException {
+    protected Node match(String s) {
         StringBuilder sb = new StringBuilder();
         for (char c : s.toCharArray()) sb.append(match(c));
         return new Node(sb.toString());
-    }
-
-    protected void unexpected() throws ParseException {
-        char y = input.charAt(pos);
-        throw new ParseException(y, pos, '$');
     }
 
     protected Node epsilon() {
         return new Node('\u03B5');
     }
 
-    private void done() throws ParseException {
+    private void done() {
         if (pos < input.length()-1) {
             char y = input.charAt(pos);
             throw new ParseException(y, pos, '$');
@@ -50,10 +43,13 @@ public abstract class Parser {
         throw new ParseException(y, pos, expected);
     }
 
-    public Node parse() {
+    public void testParser() {
         System.out.println("Parsing: " + input);
         try {
-            return attemptParse();
+            Node root = parse();
+            System.out.print("ACCEPT: ");
+            System.out.println(root);
+            root.makeDot();
         } catch (ParseException e) {
             System.out.println("Parse error: " + e.getMessage());
             System.out.println(input);
@@ -61,21 +57,27 @@ public abstract class Parser {
                 System.out.print(' ');
             System.out.println('^');
             //e.printStackTrace();
-            return null;
         }
     }
 
-    protected Node attemptParse() throws ParseException {
+    public void testRecognizer() {
+        System.out.println("Parsing: " + input);
+        try {
+            parse();
+            System.out.print("ACCEPT!");
+        } catch (ParseException e) {
+            System.out.println("REJECT!");
+        }
+    }
+
+    public Node parse() {
         pos = 0;
         Node root = s();
         done();
-        System.out.print("ACCEPT: ");
-        System.out.println(root);
-        root.makeDot();
         return root;
     }
 
     // Start symbol S.
-    protected abstract Node s() throws ParseException;
+    protected abstract Node s();
 
 }

@@ -8,7 +8,7 @@ public class LLParser extends Parser {
 
     public static void main(String[] args) {
         Parser parser = new LLParser(args[0]);
-        parser.parse();
+        parser.testParser();
     }
 
     // Grammatika reeglid:
@@ -26,7 +26,7 @@ public class LLParser extends Parser {
                 n.add(epsilon());
                 break;
             default:
-                unexpected();
+                unexpected('a', 'b', '$');
         }
         return n;
     }
