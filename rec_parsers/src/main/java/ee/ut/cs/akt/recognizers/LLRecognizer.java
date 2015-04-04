@@ -18,13 +18,19 @@ public class LLRecognizer extends Parser {
     // S -> aSb | ε
     protected Node s() {
         switch (peek()) {
-            case 'a': // S -> aSb
+            case 'a':
+                // S -> aSb
                 match('a');
                 s();
                 match('b');
                 break;
-            default:  // S -> ε
+            case 'b':
+            case '$':
+                // S -> ε
                 epsilon();
+                break;
+            default:
+                unexpected('a', 'b', '$');
         }
         return null;
     }

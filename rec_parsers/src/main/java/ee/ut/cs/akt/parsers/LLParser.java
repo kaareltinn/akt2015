@@ -21,12 +21,9 @@ public class LLParser extends Parser {
                 n.add(s());
                 n.add(match('b'));
                 break;
-            case 'b':
-            case '$':
+            default:
                 n.add(epsilon());
                 break;
-            default:
-                unexpected('a', 'b', '$');
         }
         return n;
     }
