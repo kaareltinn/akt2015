@@ -1,6 +1,5 @@
 package ee.ut.cs.akt.recognizers;
 
-import java.text.ParseException;
 import java.util.Random;
 
 public class RDRecognizer extends Recognizer {
@@ -28,7 +27,7 @@ public class RDRecognizer extends Recognizer {
 
     // Grammatika reeglid:
     // S -> aSb | ε
-    void s() throws ParseException {
+    protected void s() {
 
         switch (generator.nextInt(2)) {
             case 0: // S -> aSb

@@ -1,8 +1,6 @@
 package ee.ut.cs.akt.recognizers;
 
-import java.text.ParseException;
-
-public class Recognizer {
+public abstract class Recognizer {
     String input;
     int pos;
 
@@ -10,34 +8,35 @@ public class Recognizer {
         this.input = input + '$';
     }
 
-    void match(char x) throws ParseException {
+    protected void match(char x) {
         char y = input.charAt(pos);
         if (y == x) {
             pos++;
         } else
-            throw new ParseException("Unexpected char " + y, pos);
+            throw new ParseException(y, pos, x);
     }
 
-    void match(String s) throws ParseException {
+    protected void match(String s) throws ParseException {
         for (char c : s.toCharArray()) match(c);
     }
 
-    public char peek() {
+    protected char peek() {
         return input.charAt(pos);
     }
 
-    void epsilon() { }
+    protected void epsilon() {
+    }
 
-    void done() throws ParseException {
+    private void done() throws ParseException {
         if (pos < input.length()-1) {
             char y = input.charAt(pos);
-            throw new ParseException("Unexpected char " + y, pos);
+            throw new ParseException(y, pos, '$');
         }
     }
 
-    void unexpected() throws ParseException {
+    protected void unexpected(Character... expected) {
         char y = input.charAt(pos);
-        throw new ParseException("Unexpected char " + y, pos);
+        throw new ParseException(y, pos, expected);
     }
 
     public void parse() {
@@ -47,28 +46,20 @@ public class Recognizer {
         } catch (ParseException e) {
             System.out.println("Parse error: " + e.getMessage());
             System.out.println(input);
-            for (int i = 0; i < e.getErrorOffset(); i++)
+            for (int i = 0; i < e.getOffset(); i++)
                 System.out.print(' ');
             System.out.println('^');
             //e.printStackTrace();
         }
     }
 
-    public void attemptParse() throws ParseException {
+    protected void attemptParse() throws ParseException {
         pos = 0;
         s();
         done();
         System.out.println("ACCEPT!");
     }
 
-    public static void main(String[] args) {
-        Recognizer recognizer = new Recognizer(args[0]);
-        recognizer.parse();
-    }
-
     // Start symbol S.
-    void s() throws ParseException {
-
-    }
-
+    protected abstract void s() throws ParseException;
 }

@@ -1,8 +1,5 @@
 package ee.ut.cs.akt.recognizers;
 
-
-import java.text.ParseException;
-
 public class BTRecognizer extends Recognizer {
     public BTRecognizer(String input) {
         super(input);
@@ -15,7 +12,7 @@ public class BTRecognizer extends Recognizer {
 
     // Grammatika reeglid:
     // S -> aSb | ε
-    void s() {
+    protected void s() {
         int mark = pos;
         try {
             match('a');

@@ -7,7 +7,7 @@
     </properties>
     <modelVersion>4.0.0</modelVersion>
     <groupId>ee.ut.cs.akt</groupId>
-    <artifactId>parsergen</artifactId>
+    <artifactId>rec_parsers</artifactId>
     <version>1.0</version>
     <dependencies>
         <dependency>

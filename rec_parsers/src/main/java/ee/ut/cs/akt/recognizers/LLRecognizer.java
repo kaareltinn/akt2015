@@ -1,7 +1,5 @@
 package ee.ut.cs.akt.recognizers;
 
-import java.text.ParseException;
-
 public class LLRecognizer extends Recognizer {
 
     public LLRecognizer(String input) {
@@ -15,7 +13,7 @@ public class LLRecognizer extends Recognizer {
 
     // Grammatika reeglid:
     // S -> aSb | ε
-    void s() throws ParseException {
+    protected void s() throws ParseException {
         switch(peek()) {
             case 'a':
                 match('a');

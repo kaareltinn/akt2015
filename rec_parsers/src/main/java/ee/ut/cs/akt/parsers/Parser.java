@@ -1,8 +1,8 @@
 package ee.ut.cs.akt.parsers;
 
-import java.text.ParseException;
+import ee.ut.cs.akt.recognizers.ParseException;
 
-public class Parser {
+public abstract class Parser {
     String input;
     int pos;
 
@@ -14,34 +14,40 @@ public class Parser {
         return input.charAt(pos);
     }
 
-    Node match(char x) throws ParseException {
+    protected Node match(char x) throws ParseException {
         char y = input.charAt(pos);
         if (y == x) {
             pos++;
             return new Node(x);
         } else
-            throw new ParseException("Unexpected char " + y, pos);
+            throw new ParseException(y, pos, x);
     }
 
-    Node match(String s) throws ParseException {
+    protected Node match(String s) throws ParseException {
         StringBuilder sb = new StringBuilder();
         for (char c : s.toCharArray()) sb.append(match(c));
         return new Node(sb.toString());
     }
 
-    void unexpected() throws ParseException {
+    protected void unexpected() throws ParseException {
         char y = input.charAt(pos);
-        throw new ParseException("Unexpected char " + y, pos);
+        throw new ParseException(y, pos, '$');
     }
 
-    Node epsilon() {
+    protected Node epsilon() {
         return new Node('\u03B5');
     }
 
-    void done() throws ParseException {
+    private void done() throws ParseException {
         if (pos < input.length()-1) {
-            throw new ParseException("Unexpected input.", pos);
+            char y = input.charAt(pos);
+            throw new ParseException(y, pos, '$');
         }
+    }
+
+    protected void unexpected(Character... expected) {
+        char y = input.charAt(pos);
+        throw new ParseException(y, pos, expected);
     }
 
     public Node parse() {
@@ -51,7 +57,7 @@ public class Parser {
         } catch (ParseException e) {
             System.out.println("Parse error: " + e.getMessage());
             System.out.println(input);
-            for (int i = 0; i < e.getErrorOffset(); i++)
+            for (int i = 0; i < e.getOffset(); i++)
                 System.out.print(' ');
             System.out.println('^');
             //e.printStackTrace();
@@ -59,7 +65,7 @@ public class Parser {
         }
     }
 
-    public Node attemptParse() throws ParseException {
+    protected Node attemptParse() throws ParseException {
         pos = 0;
         Node root = s();
         done();
@@ -69,14 +75,7 @@ public class Parser {
         return root;
     }
 
-    public static void main(String[] args) {
-        Parser parser = new Parser(args[0]);
-        parser.parse();
-    }
-
     // Start symbol S.
-    Node s() throws ParseException {
-        return null;
-    }
+    protected abstract Node s() throws ParseException;
 
 }

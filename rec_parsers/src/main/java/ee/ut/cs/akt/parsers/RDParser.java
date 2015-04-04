@@ -1,6 +1,7 @@
 package ee.ut.cs.akt.parsers;
 
-import java.text.ParseException;
+import ee.ut.cs.akt.recognizers.ParseException;
+
 import java.util.Random;
 
 public class RDParser extends Parser {
@@ -32,7 +33,7 @@ public class RDParser extends Parser {
 
     // Grammatika reeglid:
     // S -> aSb | ε
-    Node s() throws ParseException {
+    protected Node s() {
         Node n = new Node("S");
 
         switch (generator.nextInt(2)) {

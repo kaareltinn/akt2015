@@ -1,65 +1,12 @@
 package ee.ut.cs.akt.tutorial;
 
-import java.text.ParseException;
+import ee.ut.cs.akt.parsers.Node;
+import ee.ut.cs.akt.recognizers.Recognizer;
 
-public class TutRecognizer {
-    String input;
-    int pos;
+public class TutRecognizer extends Recognizer {
 
     public TutRecognizer(String input) {
-        this.input = input;
-    }
-
-    void match(char x) throws ParseException {
-        if (pos < input.length()) {
-            char y = input.charAt(pos);
-            if (y == x) {
-                pos++;
-            } else
-                throw new ParseException("Unexpected char " + y, pos);
-        } else
-            throw new ParseException("Unexpected end of file.", pos);
-    }
-
-    public char peek() {
-        if (pos < input.length())
-            return input.charAt(pos);
-        return '$'; // EOF sümbol
-    }
-
-    void epsilon() { }
-
-    void done() throws ParseException {
-        if (pos < input.length()) {
-            char y = input.charAt(pos);
-            throw new ParseException("Unexpected char " + y, pos);
-        }
-    }
-
-    void unexpected() throws ParseException {
-        char y = input.charAt(pos);
-        throw new ParseException("Unexpected char " + y, pos);
-    }
-
-    public void parse() {
-        System.out.println("Parsing: " + input);
-        try {
-            attemptParse();
-        } catch (ParseException e) {
-            System.out.println("Parse error: " + e.getMessage());
-            System.out.println(input + '$');
-            for (int i = 0; i < e.getErrorOffset(); i++)
-                System.out.print(' ');
-            System.out.println('^');
-            //e.printStackTrace();
-        }
-    }
-
-    public void attemptParse() throws ParseException {
-        pos = 0;
-        s();
-        done();
-        System.out.println("ACCEPT!");
+        super(input);
     }
 
     public static void main(String[] args) {
@@ -67,40 +14,68 @@ public class TutRecognizer {
         recognizer.parse();
     }
 
-    // Start symbol S.
-    void s() throws ParseException {
-        switch(peek()) {
-            case 'a':
-                x();
-                break;
-            case 'b':
-            case '$':
-                y();
-                break;
-            default:
-                unexpected();
-        }
+    // S → T R
+    protected void s() {
+        t();
+        r();
     }
 
-    void y() throws ParseException {
-        switch(peek()) {
+    // R → '+' T R | ε
+    private void r() {
+        switch (peek()) {
+            case '+':
+                match('+');
+                t();
+                r();
+                break;
             case '$':
-            case 'a':
+            case ')':
                 epsilon();
                 break;
-            case 'b':
-                match('b');
-                x();
-                match('a');
+            default:
+                unexpected();
+        }
+    }
+
+    // T → F Q
+    private void t() {
+        f();
+        q();
+    }
+
+    // Q → '*' F Q | ε
+    private void q() {
+        switch(peek()) {
+            case '*':
+                match('*');
+                f();
+                q();
+                break;
+            case '$':
+            case '+':
+            case ')':
+                epsilon();
                 break;
             default:
                 unexpected();
         }
     }
 
-    void x() throws ParseException {
-        match('a');
-        y();
+    // F → 'x' | '(' S ')'
+    private Node f() {
+        Node _n = new Node("F");
+        switch(peek()) {
+            case '(':
+                match('(');
+                s();
+                match(')');
+                break;
+            case 'x':
+                match('x');
+                break;
+            default:
+                unexpected();
+        }
+        return _n;
     }
-
 }

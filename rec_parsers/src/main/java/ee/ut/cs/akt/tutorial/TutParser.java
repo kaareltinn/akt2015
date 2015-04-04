@@ -1,73 +1,12 @@
 package ee.ut.cs.akt.tutorial;
 
 import ee.ut.cs.akt.parsers.Node;
+import ee.ut.cs.akt.parsers.Parser;
 
-import java.text.ParseException;
-
-public class TutParser {
-    String input;
-    int pos;
+public class TutParser extends Parser {
 
     public TutParser(String input) {
-        this.input = input;
-    }
-
-    public char peek() {
-        if (pos < input.length())
-            return input.charAt(pos);
-        return '$'; // EOF sümbol
-    }
-
-    Node match(char x) throws ParseException {
-        if (pos < input.length()) {
-            char y = input.charAt(pos);
-            if (y == x) {
-                pos++;
-                return new Node(x);
-            } else
-                throw new ParseException("Unexpected char " + y, pos);
-        } else
-            throw new ParseException("Unexpected end of file.", pos);
-    }
-
-    void unexpected() throws ParseException {
-        char y = input.charAt(pos);
-        throw new ParseException("Unexpected char " + y, pos);
-    }
-
-    Node epsilon() {
-        return new Node('\u03B5');
-    }
-
-    void done() throws ParseException {
-        if (pos < input.length()) {
-            throw new ParseException("Unexpected input.", pos);
-        }
-    }
-
-    public Node parse() {
-        System.out.println("Parsing: " + input);
-        try {
-            return attemptParse();
-        } catch (ParseException e) {
-            System.out.println("Parse error: " + e.getMessage());
-            System.out.println(input + '$');
-            for (int i = 0; i < e.getErrorOffset(); i++)
-                System.out.print(' ');
-            System.out.println('^');
-            //e.printStackTrace();
-            return null;
-        }
-    }
-
-    public Node attemptParse() throws ParseException {
-        pos = 0;
-        Node root = s();
-        done();
-        System.out.print("ACCEPT: ");
-        System.out.println(root);
-        root.makeDot();
-        return root;
+        super(input);
     }
 
     public static void main(String[] args) {
@@ -75,15 +14,16 @@ public class TutParser {
         parser.parse();
     }
 
-    // Start symbol S.
-    Node s() throws ParseException {
+    // S → T R
+    protected Node s() {
         Node _n = new Node("S");
         _n.add(t());
         _n.add(r());
         return _n;
     }
 
-    Node r() throws ParseException {
+    // R → '+' T R | ε
+    private Node r() {
         Node _n = new Node("R");
         switch(peek()) {
             case '+':
@@ -101,14 +41,16 @@ public class TutParser {
         return _n;
     }
 
-    Node t() throws ParseException {
+    // T → F Q
+    private Node t() {
         Node _n = new Node("T");
         _n.add(f());
         _n.add(q());
         return _n;
     }
 
-    Node q() throws ParseException {
+    // Q → '*' F Q | ε
+    private Node q() {
         Node _n = new Node("Q");
         switch(peek()) {
             case '*':
@@ -127,7 +69,8 @@ public class TutParser {
         return _n;
     }
 
-    Node f() throws ParseException {
+    // F → 'x' | '(' S ')'
+    private Node f() {
         Node _n = new Node("F");
         switch(peek()) {
             case '(':

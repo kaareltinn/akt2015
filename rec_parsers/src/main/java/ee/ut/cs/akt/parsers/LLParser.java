@@ -1,7 +1,5 @@
 package ee.ut.cs.akt.parsers;
 
-import java.text.ParseException;
-
 public class LLParser extends Parser {
 
     public LLParser(String input) {
@@ -15,7 +13,7 @@ public class LLParser extends Parser {
 
     // Grammatika reeglid:
     // S -> aSb | ε
-    Node s() throws ParseException {
+    protected Node s() {
         Node n = new Node("S");
         switch(peek()) {
             case 'a':

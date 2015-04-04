@@ -1,6 +1,6 @@
 package ee.ut.cs.akt.parsers;
 
-import java.text.ParseException;
+import ee.ut.cs.akt.recognizers.ParseException;
 
 public class BTParser extends Parser {
     public BTParser(String input) {
@@ -14,7 +14,7 @@ public class BTParser extends Parser {
 
     // Grammatika reeglid:
     // S -> aSb | ε
-    Node s() throws ParseException {
+    protected Node s() throws ParseException {
         int mark = pos;
         Node n = new Node("S");
         try {
