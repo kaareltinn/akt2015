@@ -9,6 +9,13 @@ public class SAParser extends Parser {
         super(input);
     }
 
+    // Testimiseks võib kasutada:
+    public static void main(String[] args) {
+        SAParser parser = new SAParser(args[0]);
+        parser.testParser();
+    }
+
+    // Start sümbol:
     protected Node s() {
         return null;
     }

@@ -11,7 +11,7 @@ public class TutParser extends Parser {
 
     public static void main(String[] args) {
         TutParser parser = new TutParser(args[0]);
-        parser.parse();
+        parser.testParser();
     }
 
     // S → T R

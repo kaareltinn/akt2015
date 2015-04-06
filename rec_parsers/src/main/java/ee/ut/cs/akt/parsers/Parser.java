@@ -10,7 +10,7 @@ public abstract class Parser {
         this.input = input + '$';
     }
 
-    public char peek() {
+    protected char peek() {
         return input.charAt(pos);
     }
 
