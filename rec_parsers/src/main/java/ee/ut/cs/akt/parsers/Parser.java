@@ -1,5 +1,7 @@
 package ee.ut.cs.akt.parsers;
 
+import java.util.Arrays;
+
 public abstract class Parser {
     private String input;
     protected int pos;
@@ -41,6 +43,13 @@ public abstract class Parser {
     protected void unexpected(Character... expected) {
         char y = input.charAt(pos);
         throw new ParseException(y, pos, expected);
+    }
+
+    protected void expect(Character... expected) {
+        char y = input.charAt(pos);
+        if (!Arrays.asList(expected).contains(y)) {
+            throw new ParseException(y, pos, expected);
+        }
     }
 
     public void testParser() {
