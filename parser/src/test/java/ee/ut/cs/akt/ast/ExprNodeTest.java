@@ -19,8 +19,13 @@ public class ExprNodeTest {
 
     @Test
     public void testPretty() throws Exception {
-        ExprNode node = minus(num(5),minus(var("kala"),num(5)));
+        ExprNode node;
+        node = minus(num(5),minus(var("kala"),num(5)));
         assertEquals(node.toString(), "5-(kala-5)", node.toPrettyString());
+        node = minus(num(5),plus(var("kala"),num(5)));
+        assertEquals(node.toString(), "5-(kala+5)", node.toPrettyString());
+        node = plus(num(5),minus(var("kala"),num(5)));
+        assertEquals(node.toString(), "5+kala-5", node.toPrettyString());
     }
 
 
