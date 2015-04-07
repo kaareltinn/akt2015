@@ -24,9 +24,9 @@ public class AKTKParserTest {
     private void check(String input, boolean accept) {
         try {
             AKTKParser.parse(input);
-            assertTrue(input, accept);
+            assertTrue(input + " peaks kuuluma keelde", accept);
         } catch (AKTKParseException e) {
-            assertFalse(input, accept);
+            assertFalse(input + " ei kuulu tegelikult keelde", accept);
         }
     }
 
