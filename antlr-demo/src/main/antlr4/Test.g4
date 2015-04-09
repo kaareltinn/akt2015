@@ -2,13 +2,13 @@ grammar Test;
 
 init: test1 | test2;
 
-test1: (short|long)*;
-test2: (SHORT|LONG)*;
+test1: (small|longg)*;
+test2: (SMALL|LONGG)*;
 
-short: 'b' 'b' 'b';
-long:  'b' 'b' 'b' 'b';
+small: 'b' 'b' 'b';
+longg:  'b' 'b' 'b' 'b';
 
-SHORT: 'aaa';
-LONG: 'aaaa';
+SMALL: 'aaa';
+LONGG: 'aaaa';
 
 WS: [ \t\r\n]+ -> skip;
